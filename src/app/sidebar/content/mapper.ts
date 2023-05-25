@@ -1,76 +1,56 @@
 import { CompanyDto, DepartmentDto, EmployeeDto, EmployeeUI, ResponseDto } from './models';
 
-export const prepEmployee = (response: ResponseDto) => {
-  const segments = response.name.split('/');
+export const mapResponseRecursively = (
+  response: ResponseDto[],
+  deps: { [k: string]: EmployeeDto[] } = {},
+  companies: { [k: string]: string } = {},
+  compDeps: { [k: string]: string[] } = {},
+  compNoDeps: { [k: string]: EmployeeDto[] } = {}
+): CompanyDto[] => {
+  if (!response.length) {
+    return Object.keys(companies)
+      .reduce((acc, curr) => [...acc, curr], <string[]>[])
+      .map(companyName => (<CompanyDto>{
+        name: companyName,
+        items: [
+          ...(companyName in compNoDeps) ?
+            compNoDeps[companyName] :
+            compDeps[companyName]
+              .map(departmentName => <DepartmentDto>{
+                name: departmentName,
+                items: deps[departmentName]
+              })
+        ]
+      }));
+  }
 
-  return <EmployeeUI>{
-    id: response.id,
-    name: segments.length === 3 ? segments[2] : segments[1],
-    company: segments[0],
-    department: segments.length === 3 ? segments[1] : undefined
-  };
-}
+  const [employeeRaw, ...other] = response;
+  const segments = employeeRaw.name.split('/');
 
-export const mapUiToDto = ({ id, name }: EmployeeUI): EmployeeDto => (<EmployeeDto>{
-  id,
-  name
-});
+  if (segments.length === 3 && segments[0] in compDeps) {
+    compDeps[segments[0]].push(segments[1]);
+  } else if (segments.length === 3) {
+    compDeps[segments[0]] = [segments[1]];
+  } else if (segments[0] in compNoDeps) {
+    compNoDeps[segments[0]].push({ id: employeeRaw.id, name: segments[1]});
+  } else {
+    compNoDeps[segments[0]] = [{ id: employeeRaw.id, name: segments[1]}];
+  }
 
-export const prepItems = (data: EmployeeUI[]) => {
-  let deps: { [k: string]: EmployeeUI[] } = {};
+  if (!(segments[0] in companies)) {
+    companies[segments[0]] = segments[0];
+  }
+  if (segments.length === 3 && segments[1] in deps) {
+    deps[segments[1]].push({ id: employeeRaw.id, name: segments[2]});
+  } else if (segments.length === 3) {
+    deps[segments[1]] = [{ id: employeeRaw.id, name: segments[2]}];
+  }
 
-  deps = data
-    .filter(e => e.department && e.department.length)
-    .reduce((acc, cur) => ({
-      ...acc,
-      [cur.department!]: cur.department! in acc ?
-        [...acc[cur.department!], cur] :
-        [cur]
-    }), deps);
-
-  let compDeps: { [k: string]: string[] } = {};
-  compDeps = data
-    .filter(e => e.department && e.department.length)
-    .reduce((acc, cur) => ({
-      ...acc,
-      [cur.company!]: cur.company! in acc ?
-        [...acc[cur.company!], cur.department!] :
-        [cur.department!]
-    }), compDeps);
-
-  let compNoDeps: { [k: string]: EmployeeUI[] } = {};
-  compNoDeps = data
-    .filter(e => !(e.department && e.department.length))
-    .reduce((acc, cur) => ({
-      ...acc,
-      [cur.company!]: cur.company! in acc ?
-        [...acc[cur.company!], cur] :
-        [cur]
-    }), compNoDeps);
-
-  let companies = Object.keys(
-    data.reduce(
-      (acc, curr) => ({
-        ...acc,
-        [curr.company]: curr.company
-      }),
-      <{ [_: string]: string }>{}
-    )
+  return mapResponseRecursively(
+    other,
+    deps,
+    companies,
+    compDeps,
+    compNoDeps
   );
-
-  return companies.map(companyName => (<CompanyDto>{
-    name: companyName,
-    items: [
-      ...(companyName in compNoDeps) ?
-        compNoDeps[companyName].map(mapUiToDto) :
-        Object.keys(
-          compDeps[companyName].reduce((acc, curr) => ({...acc, [curr]: curr}), <{ [_: string]: string }>{})
-        )
-          .reduce((acc, curr) => [...acc, curr], <string[]>[])
-          .map(departmentName => <DepartmentDto>{
-            name: departmentName,
-            items: deps[departmentName].map(mapUiToDto)
-          })
-    ]
-  }));
-};
+}
