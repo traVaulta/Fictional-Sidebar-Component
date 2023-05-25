@@ -1,19 +1,23 @@
 import { Component } from '@angular/core';
 
-import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
+import { ProfileIconComponent } from '../../icons/profil-icon/profile-icon.component';
+import { NotificationBellIconComponent } from '../../icons/notification-bell-icon/notification-bell-icon.component';
 
 @Component({
   standalone: true,
   selector: 'orfs-sidebar-toolbar',
   imports: [
-    LinkIconComponent
+    ProfileIconComponent,
+    NotificationBellIconComponent
   ],
   template: `
     <div class="flex space-between">
       <div>
-        icon
+        <orfs-notification-bell-icon></orfs-notification-bell-icon>
       </div>
-      <div>avatar</div>
+      <div>
+        <orfs-profile-icon></orfs-profile-icon>
+      </div>
     </div>
   `
 })
