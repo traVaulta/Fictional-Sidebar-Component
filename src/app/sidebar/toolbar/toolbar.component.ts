@@ -11,7 +11,7 @@ import { NotificationBellIconComponent } from '../../icons/notification-bell-ico
     NotificationBellIconComponent
   ],
   template: `
-    <div class="flex space-between">
+    <div class="flex space-between align-center">
       <div>
         <orfs-notification-bell-icon></orfs-notification-bell-icon>
       </div>
