@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 
 @Component({
   standalone: true,
   selector: 'orfs-sidebar-content',
+  imports: [
+    LinkIconComponent
+  ],
   template: `
     <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
     <nav class="fg-primary-900 w-700">
@@ -11,23 +15,23 @@ import { Component } from '@angular/core';
         <li>
           Finance Team
           <ul class="no-decoration fg-grey w-600">
-            <li>Michael P. Lucifer</li>
+            <li class="flex space-between">Michael P. Lucifer <orfs-link-icon></orfs-link-icon></li>
           </ul>
         </li>
         <li>
           Technical Team
           <ul class="no-decoration fg-grey w-600">
-            <li>Marlyn B. Brown</li>
-            <li>David P. Perez</li>
+            <li class="flex space-between">Marlyn B. Brown <orfs-link-icon></orfs-link-icon></li>
+            <li class="flex space-between">David P. Perez <orfs-link-icon></orfs-link-icon></li>
           </ul>
-        </li>
+         </li>
       </ul>
     </nav>
     <nav class="fg-primary-900 w-700">
       CashLab
       <ul class="no-decoration fg-grey w-600">
-        <li>Anna J. Kelly</li>
-        <li>Brenda J. Soto</li>
+        <li class="flex space-between">Anna J. Kelly <orfs-link-icon></orfs-link-icon></li>
+        <li class="flex space-between">Brenda J. Soto <orfs-link-icon></orfs-link-icon></li>
       </ul>
     </nav>
     <nav class="fg-primary-900 w-700">
@@ -36,9 +40,9 @@ import { Component } from '@angular/core';
         <li>
           Management
           <ul class="no-decoration fg-grey w-600">
-            <li>Timothy A. Merrow</li>
+            <li class="flex space-between">Timothy A. Merrow <orfs-link-icon></orfs-link-icon></li>
           </ul>
-        </li>
+         </li>
       </ul>
     </nav>
   `
