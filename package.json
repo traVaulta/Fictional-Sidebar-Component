@@ -1,6 +1,13 @@
 {
   "name": "fictional-sidebar",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=18.13.0"
+  },
+  "description": "Sidebar component for a fictional application. The design is in the provided Figma file.",
+  "author": {
+    "name": "Matija Čvrk"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
