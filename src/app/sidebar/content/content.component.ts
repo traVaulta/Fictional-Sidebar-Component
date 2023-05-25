@@ -4,14 +4,14 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { ClientService } from './client.service';
 import { prepEmployee, prepItems } from './mapper';
-import { EmployeeDto, EmployeeUI, ResponseDto } from './models';
+import { DepartmentDto, EmployeeDto, EmployeeUI, ResponseDto } from './models';
 
 @Component({
   standalone: true,
   selector: 'orfs-sidebar-content',
   imports: [
     CommonModule,
-    LinkIconComponent,
+    LinkIconComponent
   ],
   template: `
     <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
@@ -51,8 +51,22 @@ import { EmployeeDto, EmployeeUI, ResponseDto } from './models';
          </li>
       </ul>
     </nav>
-<!--    {{ employees() | json }}-->
-    {{ result() | json }}
+    <hr>
+    <hr>
+    <hr>
+    <nav *ngFor="let company of result()" class="fg-primary-900 w-700">
+      {{ company.name }}
+      <ul class="no-decoration fg-primary-900 w-700">
+        <li *ngFor="let depOrEmpl of asAny(company.items)">
+          {{ depOrEmpl.name }}
+          <ng-container *ngIf="extractIfDepartment(depOrEmpl) as empls">
+            <ul *ngFor="let empl of empls" class="no-decoration fg-grey w-600">
+              <li class="flex space-between">{{ empl.name }} <orfs-link-icon></orfs-link-icon></li>
+            </ul>
+          </ng-container>
+        </li>
+      </ul>
+    </nav>
   `
 })
 export class SidebarContentComponent implements OnInit {
@@ -64,6 +78,18 @@ export class SidebarContentComponent implements OnInit {
 
   ngOnInit() {
     this.getAll();
+  }
+
+  asAny(depsOrEmpls: DepartmentDto[] | EmployeeDto[]) {
+    return <any[]>depsOrEmpls;
+  }
+
+  extractIfDepartment(depOrEmpl: DepartmentDto | EmployeeDto): EmployeeDto[] {
+    if ('items' in depOrEmpl) {
+      return (<DepartmentDto>depOrEmpl).items;
+    } else {
+      return [];
+    }
   }
 
   async getAll() {

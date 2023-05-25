@@ -1,4 +1,4 @@
-import { CompanyDto, EmployeeDto, EmployeeUI, ResponseDto } from './models';
+import { CompanyDto, DepartmentDto, EmployeeDto, EmployeeUI, ResponseDto } from './models';
 
 export const prepEmployee = (response: ResponseDto) => {
   const segments = response.name.split('/');
@@ -11,24 +11,66 @@ export const prepEmployee = (response: ResponseDto) => {
   };
 }
 
+export const mapUiToDto = ({ id, name }: EmployeeUI): EmployeeDto => (<EmployeeDto>{
+  id,
+  name
+});
+
 export const prepItems = (data: EmployeeUI[]) => {
-  let companies: { [k: string]: EmployeeUI } = {};
-  let deps: { [k: string]: EmployeeUI } = {};
+  let deps: { [k: string]: EmployeeUI[] } = {};
 
-  companies = data.reduce((acc, cur) => ({
-    ...acc,
-    [cur.company]: cur
-  }), companies);
+  deps = data
+    .filter(e => e.department && e.department.length)
+    .reduce((acc, cur) => ({
+      ...acc,
+      [cur.department!]: cur.department! in acc ?
+        [...acc[cur.department!], cur] :
+        [cur]
+    }), deps);
 
-  deps = data.filter(e => e.department && e.department.length).reduce((acc, cur) => ({
-    ...acc,
-    [cur.department!]: cur
-  }), companies);
+  let compDeps: { [k: string]: string[] } = {};
+  compDeps = data
+    .filter(e => e.department && e.department.length)
+    .reduce((acc, cur) => ({
+      ...acc,
+      [cur.company!]: cur.company! in acc ?
+        [...acc[cur.company!], cur.department!] :
+        [cur.department!]
+    }), compDeps);
 
-  let result = <CompanyDto[]>[];
+  let compNoDeps: { [k: string]: EmployeeUI[] } = {};
+  compNoDeps = data
+    .filter(e => !(e.department && e.department.length))
+    .reduce((acc, cur) => ({
+      ...acc,
+      [cur.company!]: cur.company! in acc ?
+        [...acc[cur.company!], cur] :
+        [cur]
+    }), compNoDeps);
 
-  return Object.keys(companies).map(k => (<CompanyDto>{
-    name: k,
-    items: []
+  let companies = Object.keys(
+    data.reduce(
+      (acc, curr) => ({
+        ...acc,
+        [curr.company]: curr.company
+      }),
+      <{ [_: string]: string }>{}
+    )
+  );
+
+  return companies.map(companyName => (<CompanyDto>{
+    name: companyName,
+    items: [
+      ...(companyName in compNoDeps) ?
+        compNoDeps[companyName].map(mapUiToDto) :
+        Object.keys(
+          compDeps[companyName].reduce((acc, curr) => ({...acc, [curr]: curr}), <{ [_: string]: string }>{})
+        )
+          .reduce((acc, curr) => [...acc, curr], <string[]>[])
+          .map(departmentName => <DepartmentDto>{
+            name: departmentName,
+            items: deps[departmentName].map(mapUiToDto)
+          })
+    ]
   }));
 };
