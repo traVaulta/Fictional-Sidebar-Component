@@ -14,7 +14,6 @@ import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
     LinkIconComponent
   ],
   template: `
-    <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
     <nav *ngFor="let company of result()" class="fg-primary-900 w-700">
       {{ company.name }}
       <ul class="no-decoration">
