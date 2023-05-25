@@ -1,8 +1,10 @@
 :root {
+  // base font
   --font-base--family: Georgia;
   --font-base--size: 14px;
   --font-base--line-height: 17.07px;
 
+  // font scale
   --font-900--weight: 900;
   --font-800--weight: 800;
   --font-700--weight: 700;
@@ -14,6 +16,8 @@
   --font-100--weight: 100;
   --font-50--weight:   50;
 }
+
+/********* utility weights *********/
 
 .w-900 {
   font-weight: var(--font-900--weight);
@@ -45,3 +49,91 @@
 .w-50 {
   font-weight: var(--font-50--weight);
 }
+
+/********* typography *********/
+
+//primary
+.text-primary-900 {
+  color: var(--primary-900);
+  font-weight: var(--font-900--weight);
+}
+.text-primary-800 {
+  color: var(--primary-800);
+  font-weight: var(--font-800--weight);
+}
+.text-primary-700 {
+  color: var(--primary-700);
+  font-weight: var(--font-700--weight);
+}
+.text-primary-600 {
+  color: var(--primary-600);
+  font-weight: var(--font-600--weight);
+}
+.text-primary-500 {
+  color: var(--primary-500);
+  font-weight: var(--font-500--weight);
+}
+.text-primary-400 {
+  color: var(--primary-400);
+  font-weight: var(--font-400--weight);
+}
+.text-primary-300 {
+  color: var(--primary-300);
+  font-weight: var(--font-300--weight);
+}
+.text-primary-200 {
+  color: var(--primary-200);
+  font-weight: var(--font-200--weight);
+}
+.text-primary-100 {
+  color: var(--primary-100);
+  font-weight: var(--font-100--weight);
+}
+.text-primary-50 {
+  color: var(--primary-50);
+  font-weight: var(--font-50--weight);
+}
+
+//secondary
+.text-secondary-900 {
+  color: var(--secondary-900);
+  font-weight: var(--font-900--weight);
+}
+.text-secondary-800 {
+  color: var(--secondary-800);
+  font-weight: var(--font-800--weight);
+}
+.text-secondary-700 {
+  color: var(--secondary-700);
+  font-weight: var(--font-700--weight);
+}
+.text-secondary-600 {
+  color: var(--secondary-600);
+  font-weight: var(--font-600--weight);
+}
+.text-secondary-500 {
+  color: var(--secondary-500);
+  font-weight: var(--font-500--weight);
+}
+.text-secondary-400 {
+  color: var(--secondary-400);
+  font-weight: var(--font-400--weight);
+}
+.text-secondary-300 {
+  color: var(--secondary-300);
+  font-weight: var(--font-300--weight);
+}
+.text-secondary-200 {
+  color: var(--secondary-200);
+  font-weight: var(--font-200--weight);
+}
+.text-secondary-100 {
+  color: var(--secondary-100);
+  font-weight: var(--font-100--weight);
+}
+.text-secondary-50 {
+  color: var(--secondary-50);
+  font-weight: var(--font-50--weight);
+}
+
+/**************************/
