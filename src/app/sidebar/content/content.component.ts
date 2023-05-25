@@ -1,12 +1,17 @@
-import { Component, effect, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, computed, OnInit, signal } from '@angular/core';
+
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { ClientService } from './client.service';
+import { prepEmployee, prepItems } from './mapper';
+import { EmployeeDto, EmployeeUI, ResponseDto } from './models';
 
 @Component({
   standalone: true,
   selector: 'orfs-sidebar-content',
   imports: [
-    LinkIconComponent
+    CommonModule,
+    LinkIconComponent,
   ],
   template: `
     <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
@@ -46,16 +51,23 @@ import { ClientService } from './client.service';
          </li>
       </ul>
     </nav>
+<!--    {{ employees() | json }}-->
+    {{ result() | json }}
   `
 })
-export class SidebarContentComponent {
-  data = signal<Response[]>([]);
-  constructor(private client: ClientService) {
-    effect(() => {})
+export class SidebarContentComponent implements OnInit {
+  data = signal<ResponseDto[]>([]);
+  employees = computed(() => this.data().map(v => prepEmployee(v)));
+  result = computed(() => prepItems(this.employees()));
+
+  constructor(private client: ClientService) {}
+
+  ngOnInit() {
+    this.getAll();
   }
 
   async getAll() {
-    const data: any[] = (await this.client.getAll()) ?? [];
+    const data = (await this.client.getAll()) ?? [];
     this.data.set(data);
   }
 }
