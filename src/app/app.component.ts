@@ -12,17 +12,6 @@ import { SidebarToolbarComponent } from './sidebar/toolbar/toolbar.component';
     SidebarComponent,
     SidebarToolbarComponent
   ],
-  template: `
-    <aside class="container">
-      <orfs-sidebar-toolbar></orfs-sidebar-toolbar>
-      <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
-      <orfs-sidebar></orfs-sidebar>
-    </aside>
-  `,
-  styles: [`
-    .sidebar-heading {
-      margin: 14px 0;
-    }
-  `],
+  template: ' <orfs-sidebar></orfs-sidebar>'
 })
 export class AppComponent {}
