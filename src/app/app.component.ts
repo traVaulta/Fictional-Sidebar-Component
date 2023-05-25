@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SidebarToolbarComponent } from './sidebar/toolbar/toolbar.component';
 
 @Component({
   selector: 'orfs-root',
@@ -10,7 +9,6 @@ import { SidebarToolbarComponent } from './sidebar/toolbar/toolbar.component';
   imports: [
     CommonModule,
     SidebarComponent,
-    SidebarToolbarComponent
   ],
   template: ' <orfs-sidebar></orfs-sidebar>'
 })

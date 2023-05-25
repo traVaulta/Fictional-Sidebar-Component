@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
+import { ClientService } from './client.service';
 
 @Component({
   standalone: true,
@@ -47,4 +48,14 @@ import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
     </nav>
   `
 })
-export class SidebarContentComponent {}
+export class SidebarContentComponent {
+  data = signal<Response[]>([]);
+  constructor(private client: ClientService) {
+    effect(() => {})
+  }
+
+  async getAll() {
+    const data: any[] = (await this.client.getAll()) ?? [];
+    this.data.set(data);
+  }
+}
