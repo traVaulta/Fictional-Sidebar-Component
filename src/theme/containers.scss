@@ -3,6 +3,15 @@
   box-shadow: 0 3px 3px gray;
   height: 100%;
   min-height: 100vh;
+
+  svg g {
+    height: 12px;
+    width: 12px;
+  }
+
+  svg {
+    margin: -20;
+  }
 }
 
 .flex {
@@ -12,4 +21,8 @@
 
 .space-between {
   justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
 }

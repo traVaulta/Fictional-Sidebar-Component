@@ -19,14 +19,14 @@ import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
       <ul class="no-decoration">
         <ng-container *ngFor="let depOrEmpl of asAny(company.items)">
           <ng-template #noDeps>
-            <li class="fg-grey w-600 flex space-between">{{ depOrEmpl.name }}</li>
+            <li class="fg-grey w-600 flex space-between align-center">{{ depOrEmpl.name }}</li>
           </ng-template>
           <ng-container *ngIf="extractIfDepartment(depOrEmpl) as empls; else noDeps">
-            <li [ngClass]="{ 'fg-primary-900 w-700': empls.length > 0, 'fg-grey w-600': empls.length < 1 }">
+            <li class="flex align-center" [ngClass]="{ 'fg-primary-900 w-700': empls.length > 0, 'fg-grey w-600': empls.length < 1 }">
                 {{ depOrEmpl.name }}
             </li>
             <ul *ngFor="let empl of empls" class="no-decoration">
-              <li class="fg-grey w-600 flex space-between">{{ empl.name }} <orfs-link-icon></orfs-link-icon></li>
+              <li class="fg-grey w-600 flex space-between align-center">{{ empl.name }} <orfs-link-icon></orfs-link-icon></li>
             </ul>
           </ng-container>
         </ng-container>
