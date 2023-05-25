@@ -1,0 +1,47 @@
+:root {
+  --font-base--family: Georgia;
+  --font-base--size: 14px;
+  --font-base--line-height: 17.07px;
+
+  --font-900--weight: 900;
+  --font-800--weight: 800;
+  --font-700--weight: 700;
+  --font-600--weight: 600;
+  --font-500--weight: 500;
+  --font-400--weight: 400;
+  --font-300--weight: 300;
+  --font-200--weight: 200;
+  --font-100--weight: 100;
+  --font-50--weight:   50;
+}
+
+.w-900 {
+  font-weight: var(--font-900--weight);
+}
+.w-800 {
+  font-weight: var(--font-800--weight);
+}
+.w-700 {
+  font-weight: var(--font-700--weight);
+}
+.w-600 {
+  font-weight: var(--font-600--weight);
+}
+.w-500 {
+  font-weight: var(--font-500--weight);
+}
+.w-400 {
+  font-weight: var(--font-400--weight);
+}
+.w-300 {
+  font-weight: var(--font-300--weight);
+}
+.w-200 {
+  font-weight: var(--font-200--weight);
+}
+.w-100 {
+  font-weight: var(--font-100--weight);
+}
+.w-50 {
+  font-weight: var(--font-50--weight);
+}
