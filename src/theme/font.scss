@@ -1,6 +1,11 @@
+@font-face {
+  font-family: 'Montserrat Regular';
+  src: url(/assets/fonts/Montserrat-Regular.ttf);
+}
+
 :root {
   // base font
-  --font-base--family: Georgia;
+  --font-base--family: 'Montserrat Regular';
   --font-base--size: 14px;
   --font-base--stye: normal;
   --font-base--line-height: 17.07px;
