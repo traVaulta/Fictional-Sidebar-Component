@@ -9,11 +9,11 @@
         <li class="flex space-between align-center"
             [ngClass]="{ 'fg-primary-900 w-700': empls.length > 0, 'fg-grey w-600': empls.length < 1 }"
         >
-          {{ depOrEmpl.name }} <orfs-link-icon icon></orfs-link-icon>
+          {{ depOrEmpl.name }} <a href="#"><orfs-link-icon icon></orfs-link-icon></a>
         </li>
         <ul *ngFor="let empl of empls" class="no-decoration">
           <li class="fg-grey w-600 flex space-between align-center">
-            {{ empl.name }} <orfs-link-icon icon></orfs-link-icon>
+            {{ empl.name }} <a href="#"><orfs-link-icon icon></orfs-link-icon></a>
           </li>
         </ul>
       </ng-container>
