@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, OnInit, signal } from '@angular/core';
 
+import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { ClientService } from './client.service';
 import { mapResponseRecursively } from './mapper';
@@ -11,7 +12,8 @@ import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
   selector: 'orfs-sidebar-content',
   imports: [
     CommonModule,
-    LinkIconComponent
+    LinkIconComponent,
+    IconDirective
   ],
   template: `
     <nav *ngFor="let company of result()" class="fg-primary-900 w-700">
@@ -23,10 +25,10 @@ import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
           </ng-template>
           <ng-container *ngIf="extractIfDepartment(depOrEmpl) as empls; else noDeps">
             <li class="flex space-between align-center" [ngClass]="{ 'fg-primary-900 w-700': empls.length > 0, 'fg-grey w-600': empls.length < 1 }">
-                {{ depOrEmpl.name }} <orfs-link-icon></orfs-link-icon>
+                {{ depOrEmpl.name }} <orfs-link-icon icon></orfs-link-icon>
             </li>
             <ul *ngFor="let empl of empls" class="no-decoration">
-              <li class="fg-grey w-600 flex space-between align-center">{{ empl.name }} <orfs-link-icon></orfs-link-icon></li>
+              <li class="fg-grey w-600 flex space-between align-center">{{ empl.name }} <orfs-link-icon icon></orfs-link-icon></li>
             </ul>
           </ng-container>
         </ng-container>
