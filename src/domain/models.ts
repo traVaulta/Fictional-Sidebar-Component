@@ -1,9 +1,6 @@
 import { EmployeeDto } from './employee/model';
+import { DepartmentDto } from './department/model';
 
-export interface DepartmentDto {
-  name: string;
-  items: EmployeeDto[];
-}
 export interface CompanyDto {
   name: string;
   items: DepartmentDto[] | EmployeeDto[];

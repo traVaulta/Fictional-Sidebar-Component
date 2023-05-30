@@ -1,5 +1,6 @@
-import { CompanyDto, DepartmentDto } from './models';
+import { CompanyDto } from './models';
 import { EmployeeDto, ResponseDto } from './employee/model';
+import { DepartmentDto } from './department/model';
 
 export const mapResponseRecursively = (
   response: ResponseDto[],
