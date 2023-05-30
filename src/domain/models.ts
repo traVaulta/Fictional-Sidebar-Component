@@ -1,11 +1,5 @@
-export interface ResponseDto {
-  id: string;
-  name: string;
-}
-export interface EmployeeDto {
-  id: string;
-  name: string;
-}
+import { EmployeeDto } from './employee/model';
+
 export interface DepartmentDto {
   name: string;
   items: EmployeeDto[];

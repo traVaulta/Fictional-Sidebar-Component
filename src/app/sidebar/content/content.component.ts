@@ -5,7 +5,8 @@ import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { ClientService } from '../../../domain/client.service';
 import { mapResponseRecursively } from '../../../domain/mapper';
-import { DepartmentDto, EmployeeDto, ResponseDto } from '../../../domain/models';
+import { DepartmentDto } from '../../../domain/models';
+import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
 
 @Component({
   standalone: true,
