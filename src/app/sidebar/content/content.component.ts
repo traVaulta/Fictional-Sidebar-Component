@@ -3,9 +3,9 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 
 import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
-import { ClientService } from './client.service';
-import { mapResponseRecursively } from './mapper';
-import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
+import { ClientService } from '../../../domain/client.service';
+import { mapResponseRecursively } from '../../../domain/mapper';
+import { DepartmentDto, EmployeeDto, ResponseDto } from '../../../domain/models';
 
 @Component({
   standalone: true,
