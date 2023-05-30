@@ -38,7 +38,8 @@ import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
   `
 })
 export class SidebarContentComponent implements OnInit {
-  data = signal<ResponseDto[]>([]);
+  private data = signal<ResponseDto[]>([]);
+
   result = computed(() => mapResponseRecursively(this.data()));
 
   constructor(private client: ClientService) {}
@@ -59,8 +60,8 @@ export class SidebarContentComponent implements OnInit {
     }
   }
 
-  async getAll() {
-    const data = (await this.client.getAll()) ?? [];
+  private async getAll() {
+    const data = await this.client.getAll();
     this.data.set(data);
   }
 }
