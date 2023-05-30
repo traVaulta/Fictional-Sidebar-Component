@@ -4,7 +4,7 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { ClientService } from '../../../domain/client.service';
-import { mapResponseRecursively } from '../../../domain/mapper';
+import { mapResponseRecursively } from '../../../domain/company/mapper';
 import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
 import { DepartmentDto } from '../../../domain/department/model';
 
