@@ -5,5 +5,6 @@ import { Directive, HostBinding } from '@angular/core';
   selector: '[icon]'
 })
 export class IconDirective {
-  @HostBinding('class.icon') ready = true;
+  @HostBinding('class.icon')
+  readonly marked = true;
 }
