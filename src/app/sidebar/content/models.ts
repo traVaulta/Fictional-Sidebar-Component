@@ -2,13 +2,6 @@ export interface ResponseDto {
   id: string;
   name: string;
 }
-
-export interface EmployeeUI {
-  id: string;
-  name: string;
-  department?: string;
-  company: string;
-}
 export interface EmployeeDto {
   id: string;
   name: string;
