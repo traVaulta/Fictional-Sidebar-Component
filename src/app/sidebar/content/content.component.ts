@@ -3,7 +3,7 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 
 import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
-import { mapResponseRecursively } from '../../../domain/company/mapper';
+import { mapData } from '../../../domain/company/mapper';
 import { DepartmentDto } from '../../../domain/department/model';
 import { ClientService } from '../../../domain/employee/client';
 import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
@@ -21,7 +21,7 @@ import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
 export class SidebarContentComponent implements OnInit {
   private data = signal<ResponseDto[]>([]);
 
-  result = computed(() => mapResponseRecursively(this.data()));
+  result = computed(() => mapData(this.data()));
 
   constructor(private client: ClientService) {}
 
