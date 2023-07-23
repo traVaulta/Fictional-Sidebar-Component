@@ -3,9 +3,9 @@ import { DepartmentDto } from '../department/model';
 import { CompanyDto } from './model';
 
 export const mapData = (response: ResponseDto[]) => {
-  const companies: CompanyDto[] = [];
-  const departments: DepartmentDto[] = [];
-  const employees: EmployeeDto[] = [];
+  const companies: { [k: string]: CompanyDto } = {};
+  const departments: { [k: string]: DepartmentDto } = {};
+  const employees: { [k: string]: EmployeeDto } = {};
 
   for (const item of response) {
     const segments = item.name.split('/');
@@ -14,17 +14,17 @@ export const mapData = (response: ResponseDto[]) => {
     const company: CompanyDto | undefined = <CompanyDto>{ name: segments[0], items: [] };
     const employee: EmployeeDto | undefined = <EmployeeDto>{ name: segments.length < 3 ? segments[1] : segments[2] };
 
-    if (!companies.find(value => value.name === company.name)) companies.push(company);
-    if (department && !departments.find(value => value.name === department.name)) departments.push(department);
-    if (!employees.find(value => value.name === employee.name)) employees.push(employee);
+    if (!companies[company.name]) companies[company.name] = company;
+    if (department && !departments[department.name]) departments[department.name] = department;
+    if (!employees[employee.name]) employees[employee.name] = employee;
 
-    let existingEmployee = employees.find(value => value.name === employee.name)!;
+    let existingEmployee = employees[employee.name]!;
     let existingDepartment: DepartmentDto | undefined;
-    if (department && (existingDepartment = departments.find(value => value.name === department.name))) {
+    if (department && (existingDepartment = departments[department.name])) {
       existingDepartment.items.push(existingEmployee);
     }
     let existingCompany: CompanyDto | undefined;
-    if ((existingCompany = companies.find(value => value.name === company.name)) && existingDepartment) {
+    if ((existingCompany = companies[company.name]) && existingDepartment) {
       const existing = <DepartmentDto[]>existingCompany.items;
       existingCompany.items = [...existing, existingDepartment];
     } else if (existingCompany) {
@@ -33,5 +33,5 @@ export const mapData = (response: ResponseDto[]) => {
     }
   }
 
-  return companies;
+  return Object.values(companies);
 };
