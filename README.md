@@ -1,7 +1,6 @@
 # FictionalSidebar
 
 Sidebar component for a fictional application.
-The design is in the provided Figma file.
 
 ## Requirements
 

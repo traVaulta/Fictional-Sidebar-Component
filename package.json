@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=18.13.0"
   },
-  "description": "Sidebar component for a fictional application. The design is in the provided Figma file.",
+  "description": "Sidebar component for a fictional application.",
   "author": {
     "name": "Matija Čvrk"
   },
