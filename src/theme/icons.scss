@@ -1,0 +1,7 @@
+.icon svg:hover rect {
+  fill: rgba(204, 204, 204, 0.22);
+  //stroke: rgba(39, 20, 104, 0.69);//TODO: maybe add border to icons
+}
+.icon svg:hover path {
+  stroke: rgba(39, 20, 104, 0.69);
+}

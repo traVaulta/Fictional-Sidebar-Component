@@ -1,44 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, OnInit, signal } from '@angular/core';
 
+import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
-import { ClientService } from './client.service';
-import { prepEmployee, prepItems } from './mapper';
-import { DepartmentDto, EmployeeDto, ResponseDto } from './models';
+import { mapResponseRecursively } from '../../../domain/company/mapper';
+import { DepartmentDto } from '../../../domain/department/model';
+import { ClientService } from '../../../domain/employee/client';
+import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
 
 @Component({
   standalone: true,
   selector: 'orfs-sidebar-content',
   imports: [
     CommonModule,
-    LinkIconComponent
+    LinkIconComponent,
+    IconDirective
   ],
-  template: `
-    <div class="sidebar-heading fg-primary-900 w-700">Companies</div>
-    <nav *ngFor="let company of result()" class="fg-primary-900 w-700">
-      {{ company.name }}
-      <ul class="no-decoration">
-        <ng-container *ngFor="let depOrEmpl of asAny(company.items)">
-          <ng-template #noDeps>
-            <li class="fg-grey w-600 flex space-between">{{ depOrEmpl.name }}</li>
-          </ng-template>
-          <ng-container *ngIf="extractIfDepartment(depOrEmpl) as empls; else noDeps">
-            <li [ngClass]="{ 'fg-primary-900 w-700': empls.length > 0, 'fg-grey w-600': empls.length < 1 }">
-                {{ depOrEmpl.name }}
-            </li>
-            <ul *ngFor="let empl of empls" class="no-decoration">
-              <li class="fg-grey w-600 flex space-between">{{ empl.name }} <orfs-link-icon></orfs-link-icon></li>
-            </ul>
-          </ng-container>
-        </ng-container>
-      </ul>
-    </nav>
-  `
+  templateUrl: './content.component.html'
 })
 export class SidebarContentComponent implements OnInit {
-  data = signal<ResponseDto[]>([]);
-  employees = computed(() => this.data().map(v => prepEmployee(v)));
-  result = computed(() => prepItems(this.employees()));
+  private data = signal<ResponseDto[]>([]);
+
+  result = computed(() => mapResponseRecursively(this.data()));
 
   constructor(private client: ClientService) {}
 
@@ -58,8 +41,8 @@ export class SidebarContentComponent implements OnInit {
     }
   }
 
-  async getAll() {
-    const data = (await this.client.getAll()) ?? [];
+  private async getAll() {
+    const data = await this.client.getAll();
     this.data.set(data);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "fictional-sidebar",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "engines": {
     "node": ">=18.13.0"
   },
