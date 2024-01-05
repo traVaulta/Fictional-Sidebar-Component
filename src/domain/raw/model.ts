@@ -1,4 +1,4 @@
-export interface EmployeeDto {
+export interface ResponseDto {
   id: string;
   name: string;
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-
-import { ResponseDto } from './model';
+import { ResponseDto } from "./model";
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {

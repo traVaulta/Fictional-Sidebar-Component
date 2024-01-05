@@ -1,5 +1,6 @@
-import { EmployeeDto, ResponseDto } from '../employee/model';
+import { EmployeeDto } from '../employee/model';
 import { DepartmentDto } from '../department/model';
+import { ResponseDto } from "../raw/model";
 import { CompanyDto } from './model';
 
 export const mapData = (response: ResponseDto[]) => {

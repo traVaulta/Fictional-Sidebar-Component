@@ -5,8 +5,9 @@ import { IconDirective } from '../../icons/icon.directive';
 import { LinkIconComponent } from '../../icons/link-icon/link-icon.component';
 import { mapData } from '../../../domain/company/mapper';
 import { DepartmentDto } from '../../../domain/department/model';
-import { ClientService } from '../../../domain/employee/client';
-import { EmployeeDto, ResponseDto } from '../../../domain/employee/model';
+import { EmployeeDto } from '../../../domain/employee/model';
+import { ClientService } from '../../../domain/raw/client';
+import { ResponseDto } from "../../../domain/raw/model";
 
 @Component({
   standalone: true,
